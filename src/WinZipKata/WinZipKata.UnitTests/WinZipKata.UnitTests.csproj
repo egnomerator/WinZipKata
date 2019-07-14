@@ -6,11 +6,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{28A65C17-F859-4EAB-B7D1-26F29667E291}</ProjectGuid>
+    <ProjectGuid>{DF05556F-FB53-4D5E-A509-9E840B8D075C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WinZipKata.Tests</RootNamespace>
-    <AssemblyName>WinZipKata.Tests</AssemblyName>
+    <RootNamespace>WinZipKata.UnitTests</RootNamespace>
+    <AssemblyName>WinZipKata.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("WinZipKata.Tests")]
+[assembly: AssemblyTitle("WinZipKata.UnitTests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("WinZipKata.Tests")]
+[assembly: AssemblyProduct("WinZipKata.UnitTests")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("28a65c17-f859-4eab-b7d1-26f29667e291")]
+[assembly: Guid("df05556f-fb53-4d5e-a509-9e840b8d075c")]
 
 // Version information for an assembly consists of the following four values:
 //
