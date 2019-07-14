@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
 namespace WinZipKata
 {
@@ -7,7 +6,8 @@ namespace WinZipKata
     {
         public static bool ValidateParentPath(string parentPath)
         {
-            return Directory.Exists(parentPath);
+            const string output = "Output";
+            return Directory.Exists(parentPath) && !Directory.Exists(Path.Combine(parentPath, output));
         }
     }
 }
