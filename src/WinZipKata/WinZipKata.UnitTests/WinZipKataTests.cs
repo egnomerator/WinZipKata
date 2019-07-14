@@ -13,6 +13,7 @@ namespace WinZipKata.UnitTests
         private string _solutionProjectBasePath;
         private string _baseCDrivePath;
         private string _parentPath;
+        private string _outputFolder;
         private string _firstFolderToZipPath;
         private string _secondFolderToZipPath;
 
@@ -26,18 +27,25 @@ namespace WinZipKata.UnitTests
 
             _baseCDrivePath = Path.Combine(_solutionProjectBasePath, CDrive);
             _parentPath = Path.Combine(_baseCDrivePath, ParentFolder);
-            _firstFolderToZipPath = Path.Combine(_baseCDrivePath, @"Parent\FolderToZip1");
-            _secondFolderToZipPath = Path.Combine(_baseCDrivePath, @"Parent\FolderToZip2");
+            _outputFolder = Path.Combine(_parentPath, Output);
+            _firstFolderToZipPath = Path.Combine(_parentPath, @"FolderToZip1");
+            _secondFolderToZipPath = Path.Combine(_parentPath, @"FolderToZip2");
+        }
+
+        [TearDown]
+        public void Cleanup()
+        {
+            if (Directory.Exists(_outputFolder)) Directory.Delete(_outputFolder, recursive: true);
         }
 
         [Test]
-        public void ShouldValidateParentPathGivenValidPath()
+        public void ShouldValidateParentPath_Valid_GivenPathThatExists()
         {
             // setup
-            var parentPath = _parentPath;
+            var existingPath = _parentPath;
 
             // run
-            bool result = Zipper.ValidateParentPath(parentPath);
+            bool result = Zipper.ValidateParentPath(existingPath);
 
             // assert
             Assert.That(result, Is.True);
@@ -45,10 +53,27 @@ namespace WinZipKata.UnitTests
         }
 
         [Test]
-        public void ShouldValidateParentPathGivenNotValidPath()
+        public void ShouldValidateParentPath_NotValid_GivenPathThatDoesNotExist()
         {
             // setup
-            var parentPath = @"C:\Invalid\Path";
+            const string nonExistentPathPart = @"Path\Does\Not\Exist";
+            var nonExistentPath = Path.Combine(_baseCDrivePath, nonExistentPathPart);
+
+            // run
+            bool result = Zipper.ValidateParentPath(nonExistentPath);
+
+            // assert
+            Assert.That(result, Is.False);
+
+        }
+
+        [Test]
+        public void ShouldValidateParentPath_NotValid_GivenPathThatContainsChildFolderNamed_Output()
+        {
+            // setup
+            var parentPath = _parentPath;
+            var outputFolder = Path.Combine(_parentPath, Output);
+            if (!Directory.Exists(outputFolder)) Directory.CreateDirectory(outputFolder);
 
             // run
             bool result = Zipper.ValidateParentPath(parentPath);
