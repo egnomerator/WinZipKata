@@ -43,5 +43,19 @@ namespace WinZipKata.UnitTests
             Assert.That(result, Is.True);
 
         }
+
+        [Test]
+        public void ShouldValidateParentPathGivenNotValidPath()
+        {
+            // setup
+            var parentPath = @"C:\Invalid\Path";
+
+            // run
+            bool result = Zipper.ValidateParentPath(parentPath);
+
+            // assert
+            Assert.That(result, Is.False);
+
+        }
     }
 }
