@@ -47,17 +47,5 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="C\Parent\FolderToZip1\subFolder1\test - Copy.txt" />
-    <Content Include="C\Parent\FolderToZip1\subFolder1\test.txt" />
-    <Content Include="C\Parent\FolderToZip1\subFolder2\test - Copy.txt" />
-    <Content Include="C\Parent\FolderToZip1\subFolder2\test.txt" />
-    <Content Include="C\Parent\FolderToZip1\test.txt" />
-    <Content Include="C\Parent\FolderToZip2\subFolder1\test - Copy.txt" />
-    <Content Include="C\Parent\FolderToZip2\subFolder1\test.txt" />
-    <Content Include="C\Parent\FolderToZip2\subFolder2\test - Copy.txt" />
-    <Content Include="C\Parent\FolderToZip2\subFolder2\test.txt" />
-    <Content Include="C\Parent\FolderToZip2\test.txt" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
