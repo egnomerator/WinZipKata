@@ -10,14 +10,12 @@ namespace WinZipKata.UnitTests
     public class ParentPathValidatorTests
     {
         [SetUp]
-        [ExcludeFromCodeCoverage]
         public void Setup()
         {
             Support.Fixture.Setup();
         }
 
         [TearDown]
-        [ExcludeFromCodeCoverage]
         public void Cleanup()
         {
             Support.Fixture.Cleanup();
