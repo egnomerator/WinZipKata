@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using WinZipKata.Core;
 using WinZipKata.TestUtilities;
@@ -29,10 +28,10 @@ namespace WinZipKata.UnitTests
 
             // run
             var SUT = new ParentPathValidator(existingPath);
-            var result = SUT.ValidateParentPath();
+            var isValid = SUT.ParentPathIsValid();
 
             // assert
-            Assert.That(result, Is.True);
+            Assert.That(isValid, Is.True);
 
         }
 
@@ -45,10 +44,10 @@ namespace WinZipKata.UnitTests
 
             // run
             var SUT = new ParentPathValidator(nonExistentPath);
-            var result = SUT.ValidateParentPath();
+            var isValid = SUT.ParentPathIsValid();
 
             // assert
-            Assert.That(result, Is.False);
+            Assert.That(isValid, Is.False);
 
         }
 
@@ -62,10 +61,10 @@ namespace WinZipKata.UnitTests
 
             // run
             var SUT = new ParentPathValidator(parentPath);
-            var result = SUT.ValidateParentPath();
+            var isValid = SUT.ParentPathIsValid();
 
             // assert
-            Assert.That(result, Is.False);
+            Assert.That(isValid, Is.False);
 
         }
     }

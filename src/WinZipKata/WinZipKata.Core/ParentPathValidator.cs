@@ -11,7 +11,7 @@ namespace WinZipKata.Core
             ParentPath = parentPath;
         }
 
-        public bool ValidateParentPath()
+        public bool ParentPathIsValid()
         {
             const string output = "Output";
             return Directory.Exists(ParentPath) && !Directory.Exists(Path.Combine(ParentPath, output));

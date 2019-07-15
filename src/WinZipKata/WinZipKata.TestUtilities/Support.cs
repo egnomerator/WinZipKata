@@ -39,5 +39,28 @@ namespace WinZipKata.TestUtilities
                 if (Directory.Exists(OutputFolder)) Directory.Delete(OutputFolder, recursive: true);
             }
         }
+
+        public static class FileSystem
+        {
+            public static void CreateZipOutput(string zipFilePath)
+            {
+                CreateFolder(Path.GetDirectoryName(zipFilePath));
+                CreateFile(zipFilePath);
+            }
+
+            private static void CreateFolder(string folderPath)
+            {
+                Directory.CreateDirectory(folderPath);
+            }
+
+            private static void CreateFile(string filePath)
+            {
+                if (File.Exists(filePath)) return;
+
+                FileStream createdFile;
+                createdFile = File.Create(filePath);
+                createdFile.Close();
+            }
+        }
     }
 }

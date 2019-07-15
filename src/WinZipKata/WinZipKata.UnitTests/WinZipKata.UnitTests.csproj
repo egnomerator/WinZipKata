@@ -51,6 +51,7 @@
     <Compile Include="ParentPathValidatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WinZipKataTests.cs" />
+    <Compile Include="ZipValidatorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
