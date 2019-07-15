@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace WinZipKata.Core
 {
@@ -17,6 +18,11 @@ namespace WinZipKata.Core
         {
             var zipFileName = $"{new DirectoryInfo(FolderToZipPath).Name}.zip";
             return !File.Exists(Path.Combine(DestinationPath, zipFileName));
+        }
+
+        public string GetZipFilePathToUse()
+        {
+            throw new NotImplementedException();
         }
     }
 }

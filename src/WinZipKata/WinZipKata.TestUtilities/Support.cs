@@ -42,6 +42,16 @@ namespace WinZipKata.TestUtilities
 
         public static class FileSystem
         {
+            public static string GetZipFilePathFrom(string folderTozipPath, string destinationPath)
+            {
+                return Path.Combine(destinationPath, $"{GetFolderName(folderTozipPath)}.zip");
+            }
+
+            private static string GetFolderName(string folderPath)
+            {
+                return Path.GetFileName(folderPath);
+            }
+
             public static void CreateZipOutput(string zipFilePath)
             {
                 CreateFolder(Path.GetDirectoryName(zipFilePath));

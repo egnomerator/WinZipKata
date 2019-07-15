@@ -21,6 +21,24 @@ namespace WinZipKata.UnitTests
         }
 
         [Test]
+        public void ShouldGetExpectedZipFilePath()
+        {
+            // setup
+            var folderTozipPath = Support.Fixture.FirstFolderToZipPath;
+            var destinationPath = Support.Fixture.OutputFolder;
+
+            var expectedZipFilePath = Support.FileSystem.GetZipFilePathFrom(folderTozipPath, destinationPath);
+
+            // run
+            var SUT = new ZipValidator(folderTozipPath, destinationPath);
+            var actualZipFilePath = SUT.GetZipFilePathToUse();
+
+            // assert
+            Assert.That(actualZipFilePath, Is.EqualTo(expectedZipFilePath));
+
+        }
+
+        [Test]
         public void ShouldDetermineZipFileCanBeCreated()
         {
             // setup
