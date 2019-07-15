@@ -1,52 +1,33 @@
 ﻿using NUnit.Framework;
-using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using WinZipKata.Core;
+using WinZipKata.TestUtilities;
 
 namespace WinZipKata.UnitTests
 {
     [TestFixture]
     public class ParentPathValidatorTests
     {
-        private const string CDrive = "C";
-        private const string ParentFolder = "Parent";
-        private const string Output = "Output";
-        private string _solutionProjectBasePath;
-        private string _baseCDrivePath;
-        private string _parentPath;
-        private string _outputFolder;
-        private string _firstFolderToZipPath;
-        private string _secondFolderToZipPath;
-
         [SetUp]
         [ExcludeFromCodeCoverage]
         public void Setup()
         {
-            var localPath = Path.GetDirectoryName(new Uri(typeof(WinZipKataTests).Assembly.CodeBase).LocalPath);
-            if (localPath == null) throw new Exception();
-            _solutionProjectBasePath = new DirectoryInfo(localPath).Parent?.Parent?.FullName;
-            if (_solutionProjectBasePath == null) throw new Exception();
-
-            _baseCDrivePath = Path.Combine(_solutionProjectBasePath, CDrive);
-            _parentPath = Path.Combine(_baseCDrivePath, ParentFolder);
-            _outputFolder = Path.Combine(_parentPath, Output);
-            _firstFolderToZipPath = Path.Combine(_parentPath, @"FolderToZip1");
-            _secondFolderToZipPath = Path.Combine(_parentPath, @"FolderToZip2");
+            Support.Fixture.Setup();
         }
 
         [TearDown]
         [ExcludeFromCodeCoverage]
         public void Cleanup()
         {
-            if (Directory.Exists(_outputFolder)) Directory.Delete(_outputFolder, recursive: true);
+            Support.Fixture.Cleanup();
         }
 
         [Test]
         public void ShouldValidateParentPath_Valid_GivenPathThatExists()
         {
             // setup
-            var existingPath = _parentPath;
+            var existingPath = Support.Fixture.ParentPath;
 
             // run
             var SUT = new ParentPathValidator(existingPath);
@@ -62,7 +43,7 @@ namespace WinZipKata.UnitTests
         {
             // setup
             const string nonExistentPathPart = @"Path\Does\Not\Exist";
-            var nonExistentPath = Path.Combine(_baseCDrivePath, nonExistentPathPart);
+            var nonExistentPath = Path.Combine(Support.Fixture.BaseCDrivePath, nonExistentPathPart);
 
             // run
             var SUT = new ParentPathValidator(nonExistentPath);
@@ -77,8 +58,8 @@ namespace WinZipKata.UnitTests
         public void ShouldValidateParentPath_NotValid_GivenPathThatContainsChildFolderNamed_Output()
         {
             // setup
-            var parentPath = _parentPath;
-            var outputFolder = Path.Combine(_parentPath, Output);
+            var parentPath = Support.Fixture.ParentPath;
+            var outputFolder = Support.Fixture.OutputFolder;
             Directory.CreateDirectory(outputFolder);
 
             // run

@@ -60,24 +60,16 @@
       <Project>{8cb77e7e-9b8b-4ed1-80ae-7c143e9045d6}</Project>
       <Name>WinZipKata.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WinZipKata.TestUtilities\WinZipKata.TestUtilities.csproj">
+      <Project>{242d136d-8bb5-4201-bb03-cb16aa6edb8f}</Project>
+      <Name>WinZipKata.TestUtilities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WinZipKata\WinZipKata.csproj">
       <Project>{b0899bc6-449c-4d83-b1d6-8a61dc908cda}</Project>
       <Name>WinZipKata</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <Content Include="C\Parent\FolderToZip1\subFolder1\test - Copy.txt" />
-    <Content Include="C\Parent\FolderToZip1\subFolder1\test.txt" />
-    <Content Include="C\Parent\FolderToZip1\subFolder2\test - Copy.txt" />
-    <Content Include="C\Parent\FolderToZip1\subFolder2\test.txt" />
-    <Content Include="C\Parent\FolderToZip1\test.txt" />
-    <Content Include="C\Parent\FolderToZip2\subFolder1\test - Copy.txt" />
-    <Content Include="C\Parent\FolderToZip2\subFolder1\test.txt" />
-    <Content Include="C\Parent\FolderToZip2\subFolder2\test - Copy.txt" />
-    <Content Include="C\Parent\FolderToZip2\subFolder2\test.txt" />
-    <Content Include="C\Parent\FolderToZip2\test.txt" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29102.190
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.757
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinZipKata", "WinZipKata\WinZipKata.csproj", "{B0899BC6-449C-4D83-B1D6-8A61DC908CDA}"
 EndProject
@@ -14,6 +14,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinZipKata.Core", "WinZipKata.Core\WinZipKata.Core.csproj", "{8CB77E7E-9B8B-4ED1-80AE-7C143E9045D6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinZipKata.UnitTests", "WinZipKata.UnitTests\WinZipKata.UnitTests.csproj", "{2D996C2C-2CF5-437E-A670-8AB7B090944B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinZipKata.TestUtilities", "WinZipKata.TestUtilities\WinZipKata.TestUtilities.csproj", "{242D136D-8BB5-4201-BB03-CB16AA6EDB8F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{2D996C2C-2CF5-437E-A670-8AB7B090944B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D996C2C-2CF5-437E-A670-8AB7B090944B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D996C2C-2CF5-437E-A670-8AB7B090944B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{242D136D-8BB5-4201-BB03-CB16AA6EDB8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{242D136D-8BB5-4201-BB03-CB16AA6EDB8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{242D136D-8BB5-4201-BB03-CB16AA6EDB8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{242D136D-8BB5-4201-BB03-CB16AA6EDB8F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +47,7 @@ Global
 		{B0899BC6-449C-4D83-B1D6-8A61DC908CDA} = {270C665E-B720-426A-883E-497667BED057}
 		{8CB77E7E-9B8B-4ED1-80AE-7C143E9045D6} = {111155F8-9499-4832-87CF-8995A97F448C}
 		{2D996C2C-2CF5-437E-A670-8AB7B090944B} = {5EF78843-D184-4DEF-9096-5A7D745A0134}
+		{242D136D-8BB5-4201-BB03-CB16AA6EDB8F} = {5EF78843-D184-4DEF-9096-5A7D745A0134}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1E19A798-70B9-4C9C-A028-9B7EE933088F}
