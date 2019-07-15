@@ -16,13 +16,13 @@ namespace WinZipKata.Core
 
         public bool ZipFileCanBeCreated()
         {
-            var zipFileName = $"{new DirectoryInfo(FolderToZipPath).Name}.zip";
-            return !File.Exists(Path.Combine(DestinationPath, zipFileName));
+            return !File.Exists(GetZipFilePathToUse());
         }
 
         public string GetZipFilePathToUse()
         {
-            throw new NotImplementedException();
+            var zipFileName = $"{new DirectoryInfo(FolderToZipPath).Name}.zip";
+            return Path.Combine(DestinationPath, zipFileName);
         }
     }
 }
