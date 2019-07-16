@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Ionic.Zip;
 
 namespace WinZipKata.Core
 {
@@ -6,7 +6,13 @@ namespace WinZipKata.Core
     {
         public static void ZipFolder(string folderToZipPath, string zipFilePath)
         {
-            throw new NotImplementedException();
+            using (var zip = new ZipFile(zipFilePath))
+            {
+                zip.UseZip64WhenSaving = Zip64Option.AsNecessary;
+                zip.CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression;
+                zip.AddDirectory(folderToZipPath);
+                zip.Save();
+            }
         }
     }
 }

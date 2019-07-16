@@ -21,7 +21,7 @@ namespace WinZipKata.UnitTests
         }
 
         [Test]
-        public void ShouldZipDirectory()
+        public void ShouldZipFolder()
         {
             // setup
             var destinationPath = Support.Fixture.OutputFolder;
