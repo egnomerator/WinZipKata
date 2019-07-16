@@ -31,7 +31,8 @@ namespace WinZipKata.UnitTests
             var zipFilePath = Path.Combine(destinationPath, $"{new DirectoryInfo(folderToZipPath).Name}.zip");
 
             // run
-            Zipper.ZipFolder(folderToZipPath, zipFilePath);
+            var SUT = new Zipper(folderToZipPath, zipFilePath);
+            SUT.ZipFolder();
 
             // assert
             Assert.That(File.Exists(zipFilePath), Is.True);

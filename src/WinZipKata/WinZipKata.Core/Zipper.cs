@@ -2,15 +2,24 @@
 
 namespace WinZipKata.Core
 {
-    public static class Zipper
+    public class Zipper
     {
-        public static void ZipFolder(string folderToZipPath, string zipFilePath)
+        private string FolderToZipPath { get; }
+        private string ZipFilePath { get; }
+
+        public Zipper(string folderToZipPath, string zipFilePath)
         {
-            using (var zip = new ZipFile(zipFilePath))
+            FolderToZipPath = folderToZipPath;
+            ZipFilePath = zipFilePath;
+        }
+
+        public void ZipFolder()
+        {
+            using (var zip = new ZipFile(ZipFilePath))
             {
                 zip.UseZip64WhenSaving = Zip64Option.AsNecessary;
                 zip.CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression;
-                zip.AddDirectory(folderToZipPath);
+                zip.AddDirectory(FolderToZipPath);
                 zip.Save();
             }
         }
