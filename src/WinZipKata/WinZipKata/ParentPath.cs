@@ -21,7 +21,8 @@ namespace WinZipKata
 
         public void Update(string newPath)
         {
-            throw new NotImplementedException();
+            Path = newPath;
+            new Action(() => { PathSource.Text = newPath; }).NonBlockingThreadSafeUiUpdate(PathSource);
         }
 
         public void Reset()

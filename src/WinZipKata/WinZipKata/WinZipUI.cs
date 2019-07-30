@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace WinZipKata
 {
@@ -7,6 +8,15 @@ namespace WinZipKata
         public WinZipUI()
         {
             InitializeComponent();
+        }
+    }
+
+    internal static class UIInteractionExtensions
+    {
+        public static void NonBlockingThreadSafeUiUpdate(this Action uiInteraction, Control control)
+        {
+            if (control.InvokeRequired) control.BeginInvoke(uiInteraction);
+            else uiInteraction();
         }
     }
 }
