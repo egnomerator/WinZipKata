@@ -16,7 +16,7 @@ namespace WinZipKata
 
         public bool IsChanged()
         {
-            throw new NotImplementedException();
+            return !PathSource.Text.Equals(Path, StringComparison.Ordinal);
         }
 
         public void Update(string newPath)

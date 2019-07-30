@@ -59,8 +59,8 @@ namespace WinZipKata.UnitTests
         public void ShouldDetermineThatParentPathChanged()
         {
             // setup
-            var existingPath = Support.Fixture.ParentPath;
             var path = new TextBox();
+            path.Text = Support.Fixture.ParentPath;
             var newPath = string.Empty;
 
             // run
