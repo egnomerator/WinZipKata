@@ -15,10 +15,10 @@ namespace WinZipKata.Core
 
         public bool ZipFileCanBeCreated()
         {
-            return !File.Exists(GetZipFilePathToUse());
+            return !File.Exists(GetZipFilePath());
         }
 
-        public string GetZipFilePathToUse()
+        public string GetZipFilePath()
         {
             var zipFileName = $"{new DirectoryInfo(FolderToZipPath).Name}.zip";
             return Path.Combine(DestinationPath, zipFileName);

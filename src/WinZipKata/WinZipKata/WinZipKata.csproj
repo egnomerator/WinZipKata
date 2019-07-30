@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ParentPath.cs" />
     <Compile Include="WinZipUI.cs">
       <SubType>Form</SubType>
     </Compile>

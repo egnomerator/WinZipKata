@@ -31,7 +31,7 @@ namespace WinZipKata.UnitTests
 
             // run
             var SUT = new ZipValidator(folderTozipPath, destinationPath);
-            var actualZipFilePath = SUT.GetZipFilePathToUse();
+            var actualZipFilePath = SUT.GetZipFilePath();
 
             // assert
             Assert.That(actualZipFilePath, Is.EqualTo(expectedZipFilePath));
