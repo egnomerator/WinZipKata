@@ -27,7 +27,7 @@ namespace WinZipKata
 
         public void Reset()
         {
-            throw new NotImplementedException();
+            Update(string.Empty);
         }
     }
 }
