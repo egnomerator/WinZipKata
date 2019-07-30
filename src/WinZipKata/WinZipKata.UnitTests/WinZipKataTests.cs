@@ -20,6 +20,25 @@ namespace WinZipKata.UnitTests
         }
 
         [Test]
+        public void ShouldUpdate_SuchThatBothTrackedValuesAreUpdatedWithSameValue()
+        {
+            // setup
+            var existingPath = Support.Fixture.ParentPath;
+            var path = new TextBox();
+            path.Text = Support.Fixture.ParentPath;
+            var newPath = $"{Support.Fixture.ParentPath}new";
+
+            // run
+            var SUT = new ParentPath(path);
+            SUT.Update(newPath);
+
+            // assert
+            Assert.That(path.Text, Is.EqualTo(newPath));
+            Assert.That(path.Text, Is.EqualTo(SUT.Path));
+
+        }
+
+        [Test]
         public void ShouldResetParentPathToEmptyString()
         {
             // setup

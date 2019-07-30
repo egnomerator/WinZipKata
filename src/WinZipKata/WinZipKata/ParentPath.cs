@@ -5,7 +5,7 @@ namespace WinZipKata
 {
     public class ParentPath
     {
-        private string Path { get; set; }
+        public string Path { get; private set; }
         private TextBox PathSource { get; }
 
         public ParentPath(TextBox pathSource)
@@ -14,7 +14,19 @@ namespace WinZipKata
             Path = PathSource.Text;
         }
 
-        public void Reset() { }
-        public bool IsChanged() { throw new NotImplementedException(); }
+        public bool IsChanged()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(string newPath)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Reset()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
