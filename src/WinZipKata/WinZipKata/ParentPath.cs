@@ -22,7 +22,7 @@ namespace WinZipKata
         public void Update(string newPath)
         {
             Path = newPath;
-            new Action(() => { PathSource.Text = newPath; }).NonBlockingThreadSafeUiUpdate(PathSource);
+            PathSource.Text = newPath;
         }
 
         public void Reset()
