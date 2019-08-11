@@ -4,17 +4,10 @@ namespace WinZipKata.Core
 {
     public class ParentPathValidator
     {
-        private string ParentPath { get; }
-
-        public ParentPathValidator(string parentPath)
-        {
-            ParentPath = parentPath;
-        }
-
-        public bool ParentPathIsValid()
+        public bool ParentPathIsValid(string parentPath)
         {
             const string output = "Output";
-            return Directory.Exists(ParentPath) && !Directory.Exists(Path.Combine(ParentPath, output));
+            return Directory.Exists(parentPath) && !Directory.Exists(Path.Combine(parentPath, output));
         }
     }
 }

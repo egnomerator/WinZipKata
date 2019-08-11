@@ -27,8 +27,8 @@ namespace WinZipKata.UnitTests
             var existingPath = Support.Fixture.ParentPath;
 
             // run
-            var SUT = new ParentPathValidator(existingPath);
-            var isValid = SUT.ParentPathIsValid();
+            var SUT = new ParentPathValidator();
+            var isValid = SUT.ParentPathIsValid(existingPath);
 
             // assert
             Assert.That(isValid, Is.True);
@@ -43,8 +43,8 @@ namespace WinZipKata.UnitTests
             var nonExistentPath = Path.Combine(Support.Fixture.BaseCDrivePath, nonExistentPathPart);
 
             // run
-            var SUT = new ParentPathValidator(nonExistentPath);
-            var isValid = SUT.ParentPathIsValid();
+            var SUT = new ParentPathValidator();
+            var isValid = SUT.ParentPathIsValid(nonExistentPath);
 
             // assert
             Assert.That(isValid, Is.False);
@@ -60,8 +60,8 @@ namespace WinZipKata.UnitTests
             Directory.CreateDirectory(outputFolder);
 
             // run
-            var SUT = new ParentPathValidator(parentPath);
-            var isValid = SUT.ParentPathIsValid();
+            var SUT = new ParentPathValidator();
+            var isValid = SUT.ParentPathIsValid(parentPath);
 
             // assert
             Assert.That(isValid, Is.False);

@@ -39,6 +39,7 @@
             this.ParentPathInput.Name = "ParentPathInput";
             this.ParentPathInput.Size = new System.Drawing.Size(225, 20);
             this.ParentPathInput.TabIndex = 0;
+            this.ParentPathInput.TextChanged += new System.EventHandler(this.ParentPathInputChanged);
             // 
             // ParentPathLabel
             // 
