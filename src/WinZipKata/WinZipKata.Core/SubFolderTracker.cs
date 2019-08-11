@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace WinZipKata.Core
 {
@@ -26,7 +28,8 @@ namespace WinZipKata.Core
 
         public void FindSubFolders(string parentPath)
         {
-            throw new NotImplementedException();
+            var subDirs = new DirectoryInfo(parentPath).GetDirectories();
+            _subFolders = subDirs.Select(dir => new SubFolder(dir.Name)).ToList();
         }
 
         public bool IsSubFolderProcessed(int index)

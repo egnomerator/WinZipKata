@@ -49,7 +49,7 @@ namespace WinZipKata.TestUtilities
                 return Path.Combine(destinationPath, $"{GetFolderName(folderToZipPath)}.zip");
             }
 
-            private static string GetFolderName(string folderPath)
+            public static string GetFolderName(string folderPath)
             {
                 return Path.GetFileName(folderPath);
             }

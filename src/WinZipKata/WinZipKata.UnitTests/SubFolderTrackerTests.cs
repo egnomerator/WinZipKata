@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System.Collections.Generic;
+using System.IO;
 using WinZipKata.Core;
 using WinZipKata.TestUtilities;
 
@@ -28,10 +29,13 @@ namespace WinZipKata.UnitTests
         {
             // setup
             var parentPath = Support.Fixture.ParentPath;
+            var firstFolderName = Support.FileSystem.GetFolderName(Support.Fixture.FirstFolderToZipPath);
+            var secondFolderName = Support.FileSystem.GetFolderName(Support.Fixture.SecondFolderToZipPath);
+
             var expectedSubFolders = new List<SubFolder>
             {
-                new SubFolder(Support.Fixture.FirstFolderToZipPath),
-                new SubFolder(Support.Fixture.SecondFolderToZipPath)
+                new SubFolder(firstFolderName),
+                new SubFolder(secondFolderName)
             };
 
             // run
