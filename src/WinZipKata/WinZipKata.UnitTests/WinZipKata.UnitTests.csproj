@@ -52,7 +52,6 @@
     <Compile Include="ParentPathTests.cs" />
     <Compile Include="ParentPathValidatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SubFolderTrackerTests.cs" />
     <Compile Include="ZipperTests.cs" />
     <Compile Include="ZipValidatorTests.cs" />
   </ItemGroup>
