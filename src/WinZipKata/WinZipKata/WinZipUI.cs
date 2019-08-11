@@ -30,16 +30,20 @@ namespace WinZipKata
             if (!_parentPathValidator.ParentPathIsValid(parentPath))
             {
                 _parentPath.Reset();
+                _subFolders = new List<DirectoryInfo>();
+                DisplaySubFolders();
                 return;
             }
 
-            // TODO: update list of folders
+            _parentPath.Update(parentPath);
             _subFolders = new DirectoryInfo(parentPath).GetDirectories().ToList();
             DisplaySubFolders();
         }
 
         private void DisplaySubFolders()
         {
+            SubFoldersListing.Items.Clear();
+
             _subFolders.ForEach(d =>
             {
                 SubFoldersListing.Items.Add(d.Name);
