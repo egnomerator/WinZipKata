@@ -46,6 +46,8 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ParentPathValidator.cs" />
+    <Compile Include="SubFolder.cs" />
+    <Compile Include="SubFolderTracker.cs" />
     <Compile Include="Zipper.cs" />
     <Compile Include="ZipValidator.cs" />
   </ItemGroup>
