@@ -74,37 +74,5 @@ namespace WinZipKata.TestUtilities
                 createdFile.Close();
             }
         }
-
-        public class SubFolderListComparer : IEqualityComparer<List<SubFolder>>
-        {
-            public bool Equals(List<SubFolder> x, List<SubFolder> y)
-            {
-                return x.IsEqualTo(y);
-            }
-
-            public int GetHashCode(List<SubFolder> obj)
-            {
-                return 0;
-            }
-        }
-    }
-
-    public static class EqualityExtensions
-    {
-        public static bool IsEqualTo(this List<SubFolder> x, List<SubFolder> y)
-        {
-            if (x.Count != y.Count) return false;
-
-            var isEqual = true;
-
-            for (var i = 0; i < x.Count && isEqual; i++) if (!x[i].IsEqualTo(y[i])) isEqual = false;
-
-            return isEqual;
-        }
-
-        public static bool IsEqualTo(this SubFolder x, SubFolder y)
-        {
-            return x.Name.Equals(y.Name, StringComparison.Ordinal);
-        }
     }
 }

@@ -7,7 +7,7 @@ namespace WinZipKata.Core
 {
     public class SubFolderTracker
     {
-        private List<SubFolder> _subFolders;
+        private List<SubFolder> SubFolders { get; set; }
 
         public class Stats
         {
@@ -18,18 +18,7 @@ namespace WinZipKata.Core
 
         public SubFolderTracker()
         {
-            _subFolders = new List<SubFolder>();
-        }
-
-        public List<SubFolder> GetSubFolders()
-        {
-            return _subFolders;
-        }
-
-        public void FindSubFolders(string parentPath)
-        {
-            var subDirs = new DirectoryInfo(parentPath).GetDirectories();
-            _subFolders = subDirs.Select(dir => new SubFolder(dir.Name)).ToList();
+            SubFolders = new List<SubFolder>();
         }
 
         public bool IsSubFolderProcessed(int index)
