@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using System.Windows.Forms;
+using WinZipKata.Core;
 using WinZipKata.TestUtilities;
 
 namespace WinZipKata.UnitTests

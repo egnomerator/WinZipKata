@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WinZipKata
+namespace WinZipKata.Core
 {
     public class ParentPath
     {
