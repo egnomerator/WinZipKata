@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using WinZipKata.Core;
@@ -40,6 +39,7 @@ namespace WinZipKata
         public void ZipSubFolders()
         {
             _view.DisableZipping();
+            _view.DisableParentPathEditing();
             var outputPath = CreateOutputFolder();
             ZipEachSubFolder(_subFolders.Select(f => f.FullName).ToList(), outputPath);
         }

@@ -50,6 +50,11 @@ namespace WinZipKata
             Zip.Enabled = false;
         }
 
+        public void DisableParentPathEditing()
+        {
+            ParentPathInput.ReadOnly = true;
+        }
+
         public void IndicateSubFolderProcessed(int index, bool isProcessed)
         {
             SubFoldersListing.Items[index].BackColor = isProcessed ? Color.LightGreen : Color.Red;
