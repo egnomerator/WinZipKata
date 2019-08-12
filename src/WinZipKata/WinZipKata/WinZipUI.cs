@@ -8,8 +8,9 @@ using WinZipKata.Core;
 
 namespace WinZipKata
 {
-    public partial class WinZipUI : Form
+    public partial class WinZipUI : Form, IWinZipUI
     {
+        private Presenter _presenter;
         private ParentPath _parentPath;
         private ParentPathValidator _parentPathValidator;
         private List<DirectoryInfo> _subFolders;
@@ -18,6 +19,8 @@ namespace WinZipKata
         {
             InitializeComponent();
 
+            _presenter = new Presenter(this, new ParentPath(ParentPathInput));
+
             _parentPath = new ParentPath(ParentPathInput);
             _parentPathValidator = new ParentPathValidator();
             _subFolders = new List<DirectoryInfo>();
@@ -25,6 +28,9 @@ namespace WinZipKata
 
         private void ParentPathInputChanged(object sender, EventArgs e)
         {
+            _presenter.ParentPathChanged(ParentPathInput.Text);
+
+
             var parentPath = ParentPathInput.Text;
             if (!_parentPath.IsChanged()) return;
 
