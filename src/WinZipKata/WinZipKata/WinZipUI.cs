@@ -63,9 +63,10 @@ namespace WinZipKata
 
         private bool ZipSubFolder(string subFolderPath, string destinationPath)
         {
+            if (!Directory.Exists(subFolderPath)) return false;
+
             var zipValidator = new ZipValidator(subFolderPath, destinationPath);
             var zipPath = zipValidator.GetZipFilePath();
-
             if (!zipValidator.ZipFileCanBeCreated()) return false;
 
             new Zipper(subFolderPath, zipPath).ZipFolder();
