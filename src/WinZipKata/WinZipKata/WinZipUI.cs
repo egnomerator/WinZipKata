@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 using WinZipKata.Core;
 
@@ -11,83 +9,50 @@ namespace WinZipKata
     public partial class WinZipUI : Form, IWinZipUI
     {
         private Presenter _presenter;
-        private ParentPath _parentPath;
-        private ParentPathValidator _parentPathValidator;
-        private List<DirectoryInfo> _subFolders;
 
         public WinZipUI()
         {
             InitializeComponent();
 
-            _presenter = new Presenter(this, new ParentPath());
-
-            _parentPath = new ParentPath();
-            _parentPathValidator = new ParentPathValidator();
-            _subFolders = new List<DirectoryInfo>();
+            _presenter = new Presenter(this, new ParentPath(), new ParentPathValidator());
         }
 
         private void ParentPathInputChanged(object sender, EventArgs e)
         {
             var newParentPath = ParentPathInput.Text;
             _presenter.ParentPathChanged(newParentPath);
+        }
 
+        public void DisplaySubFolderNames(List<string> names)
+        {
+            SubFoldersListing.Items.Clear();
 
-            var parentPath = ParentPathInput.Text;
-            if (!_parentPath.IsChanged(newParentPath)) return;
+            names.ForEach(n => SubFoldersListing.Items.Add(n));
+        }
 
-            if (!_parentPathValidator.ParentPathIsValid(parentPath))
-            {
-                _parentPath.Reset();
-                _subFolders = new List<DirectoryInfo>();
-                DisplaySubFolders();
-                return;
-            }
+        public void UpdateParentPath(string path)
+        {
+            ParentPathInput.Text = path;
+        }
 
-            _parentPath.Update(parentPath);
-            _subFolders = new DirectoryInfo(parentPath).GetDirectories().ToList();
-            DisplaySubFolders();
+        public void DisplayMessage(string message, string caption)
+        {
+            MessageBox.Show(message, caption ?? string.Empty);
         }
 
         private void ZipSubFolders(object sender, EventArgs e)
         {
+            _presenter.ZipSubFolders();
+        }
+
+        public void DisableZipping()
+        {
             Zip.Enabled = false;
-
-            var outputPath = Path.Combine(_parentPath.Path, ParentPathValidator.OutputFolder);
-            Directory.CreateDirectory(outputPath);
-            ZipEachSubFolder(_subFolders.Select(f=>f.FullName).ToList(), outputPath);
         }
 
-        private void ZipEachSubFolder(List<string> subFolderPaths, string outputPath)
+        public void IndicateSubFolderProcessed(int index, bool isProcessed)
         {
-            subFolderPaths.ForEach(p =>
-            {
-                var didZip = ZipSubFolder(p, outputPath);
-
-                var index = subFolderPaths.IndexOf(p);
-                SubFoldersListing.Items[index].BackColor = didZip ? Color.LightGreen : Color.Red;
-            });
-        }
-
-        private bool ZipSubFolder(string subFolderPath, string destinationPath)
-        {
-            if (!Directory.Exists(subFolderPath)) return false;
-
-            var zipValidator = new ZipValidator(subFolderPath, destinationPath);
-            var zipPath = zipValidator.GetZipFilePath();
-            if (!zipValidator.ZipFileCanBeCreated()) return false;
-
-            new Zipper(subFolderPath, zipPath).ZipFolder();
-            return true;
-        }
-
-        private void DisplaySubFolders()
-        {
-            SubFoldersListing.Items.Clear();
-
-            _subFolders.ForEach(d =>
-            {
-                SubFoldersListing.Items.Add(d.Name);
-            });
+            SubFoldersListing.Items[index].BackColor = isProcessed ? Color.LightGreen : Color.Red;
         }
     }
 }
