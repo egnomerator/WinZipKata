@@ -9,6 +9,8 @@ namespace WinZipKata
         void DisplayMessage(string message, string caption);
         void DisableZipping();
         void DisableParentPathEditing();
+        void EnableAbort();
+        void DisableAbort();
         void IndicateSubFolderProcessed(int index, bool isProcessed);
     }
 }

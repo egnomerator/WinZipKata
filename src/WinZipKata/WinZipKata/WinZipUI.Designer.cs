@@ -33,6 +33,7 @@
             this.Zip = new System.Windows.Forms.Button();
             this.SubFoldersListing = new System.Windows.Forms.ListView();
             this.SubFolders = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Abort = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // ParentPathInput
@@ -80,11 +81,24 @@
             this.SubFolders.Text = "SubFolders";
             this.SubFolders.Width = 280;
             // 
+            // Abort
+            // 
+            this.Abort.Enabled = false;
+            this.Abort.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Abort.Location = new System.Drawing.Point(264, 137);
+            this.Abort.Name = "Abort";
+            this.Abort.Size = new System.Drawing.Size(89, 42);
+            this.Abort.TabIndex = 5;
+            this.Abort.Text = "Abort";
+            this.Abort.UseVisualStyleBackColor = true;
+            this.Abort.Click += new System.EventHandler(this.AbortProcessing);
+            // 
             // WinZipUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.Abort);
             this.Controls.Add(this.SubFoldersListing);
             this.Controls.Add(this.Zip);
             this.Controls.Add(this.ParentPathLabel);
@@ -103,6 +117,7 @@
         private System.Windows.Forms.Button Zip;
         private System.Windows.Forms.ListView SubFoldersListing;
         private System.Windows.Forms.ColumnHeader SubFolders;
+        private System.Windows.Forms.Button Abort;
     }
 }
 

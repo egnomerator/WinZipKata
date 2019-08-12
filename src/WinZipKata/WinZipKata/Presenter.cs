@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -43,19 +44,30 @@ namespace WinZipKata
         {
             _view.DisableZipping();
             _view.DisableParentPathEditing();
+            _view.EnableAbort();
             var outputPath = CreateOutputFolder();
 
+            var isCanceled = false;
             try
             {
                 Cts = new CancellationTokenSource();
-                await Task.Run(() => ZipEachSubFolder(_subFolders.Select(f => f.FullName).ToList(), outputPath));
+                isCanceled = await Task.Run(() => ZipEachSubFolder(_subFolders.Select(f => f.FullName).ToList(), outputPath));
             }
             finally
             {
                 Cts.Dispose();
                 Cts = null;
-                _view.DisplayMessage("Finished zipping SubFolders", "Processing Complete");
+                _view.DisableAbort();
+
+                if (isCanceled) _view.DisplayMessage("Stopped zipping SubFolders", "Processing Canceled");
+                else _view.DisplayMessage("Finished zipping SubFolders", "Processing Complete");
             }
+        }
+
+        public void Abort()
+        {
+            _view.DisableAbort();
+            Cts.Cancel();
         }
 
         private void Reset()
@@ -73,18 +85,27 @@ namespace WinZipKata
             return outputPath;
         }
 
-        private void ZipEachSubFolder(List<string> subFolderPaths, string outputPath)
+        private bool ZipEachSubFolder(List<string> subFolderPaths, string outputPath)
         {
             var parallelOptions = new ParallelOptions
             {
                 CancellationToken = Cts.Token
             };
 
-            Parallel.ForEach(subFolderPaths, parallelOptions, (p, state, index) =>
+            try
             {
-                var didZip = ZipSubFolder(p, outputPath, parallelOptions.CancellationToken);
-                _view.IndicateSubFolderProcessed((int)index, didZip);
-            });
+                Parallel.ForEach(subFolderPaths, parallelOptions, (p, state, index) =>
+                {
+                    var didZip = ZipSubFolder(p, outputPath, parallelOptions.CancellationToken);
+                    _view.IndicateSubFolderProcessed((int)index, didZip);
+                });
+            }
+            catch (OperationCanceledException)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private bool ZipSubFolder(string subFolderPath, string destinationPath, CancellationToken token)

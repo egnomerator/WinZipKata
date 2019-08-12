@@ -17,12 +17,6 @@ namespace WinZipKata
             _presenter = new Presenter(this, new ParentPath(), new ParentPathValidator());
         }
 
-        private void ParentPathInputChanged(object sender, EventArgs e)
-        {
-            var newParentPath = ParentPathInput.Text;
-            _presenter.ParentPathChanged(newParentPath);
-        }
-
         public void DisplaySubFolderNames(List<string> names)
         {
             SubFoldersListing.Items.Clear();
@@ -40,11 +34,6 @@ namespace WinZipKata
             MessageBox.Show(message, caption ?? string.Empty);
         }
 
-        private void ZipSubFolders(object sender, EventArgs e)
-        {
-            _presenter.ZipSubFolders();
-        }
-
         public void DisableZipping()
         {
             Zip.Enabled = false;
@@ -59,6 +48,32 @@ namespace WinZipKata
         {
             if (InvokeRequired) Invoke(new Action(() => IndicateSubFolderProcessed(index, isProcessed)));
             else SubFoldersListing.Items[index].BackColor = isProcessed ? Color.LightGreen : Color.Red;
+        }
+
+        public void EnableAbort()
+        {
+            Abort.Enabled = true;
+        }
+
+        public void DisableAbort()
+        {
+            Abort.Enabled = false;
+        }
+
+        private void ParentPathInputChanged(object sender, EventArgs e)
+        {
+            var newParentPath = ParentPathInput.Text;
+            _presenter.ParentPathChanged(newParentPath);
+        }
+
+        private void ZipSubFolders(object sender, EventArgs e)
+        {
+            _presenter.ZipSubFolders();
+        }
+
+        private void AbortProcessing(object sender, EventArgs e)
+        {
+            _presenter.Abort();
         }
     }
 }
