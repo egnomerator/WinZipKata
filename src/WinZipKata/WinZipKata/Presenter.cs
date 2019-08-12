@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using WinZipKata.Core;
 
@@ -12,6 +13,7 @@ namespace WinZipKata
         private ParentPath _parentPath;
         private ParentPathValidator _parentPathValidator;
         private List<DirectoryInfo> _subFolders;
+        private CancellationTokenSource Cts { get; set; }
 
         public Presenter(IWinZipUI view, ParentPath parentPath, ParentPathValidator parentPathValidator)
         {
@@ -42,8 +44,18 @@ namespace WinZipKata
             _view.DisableZipping();
             _view.DisableParentPathEditing();
             var outputPath = CreateOutputFolder();
-            await Task.Run(() => ZipEachSubFolder(_subFolders.Select(f => f.FullName).ToList(), outputPath));
-            _view.DisplayMessage("Finished zipping SubFolders", "Processing Complete");
+
+            try
+            {
+                Cts = new CancellationTokenSource();
+                await Task.Run(() => ZipEachSubFolder(_subFolders.Select(f => f.FullName).ToList(), outputPath));
+            }
+            finally
+            {
+                Cts.Dispose();
+                Cts = null;
+                _view.DisplayMessage("Finished zipping SubFolders", "Processing Complete");
+            }
         }
 
         private void Reset()
@@ -63,14 +75,19 @@ namespace WinZipKata
 
         private void ZipEachSubFolder(List<string> subFolderPaths, string outputPath)
         {
-            Parallel.ForEach(subFolderPaths, (p, state, index) =>
+            var parallelOptions = new ParallelOptions
             {
-                var didZip = ZipSubFolder(p, outputPath);
+                CancellationToken = Cts.Token
+            };
+
+            Parallel.ForEach(subFolderPaths, parallelOptions, (p, state, index) =>
+            {
+                var didZip = ZipSubFolder(p, outputPath, parallelOptions.CancellationToken);
                 _view.IndicateSubFolderProcessed((int)index, didZip);
             });
         }
 
-        private bool ZipSubFolder(string subFolderPath, string destinationPath)
+        private bool ZipSubFolder(string subFolderPath, string destinationPath, CancellationToken token)
         {
             if (!Directory.Exists(subFolderPath)) return false;
 
@@ -78,7 +95,7 @@ namespace WinZipKata
             var zipPath = zipValidator.GetZipFilePath();
             if (!zipValidator.ZipFileCanBeCreated()) return false;
 
-            new Zipper(subFolderPath, zipPath).ZipFolder();
+            new Zipper(subFolderPath, zipPath).ZipFolder(token);
             return true;
         }
     }

@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System.IO;
+using System.Threading;
 using WinZipKata.Core;
 using WinZipKata.TestUtilities;
 
@@ -32,7 +33,7 @@ namespace WinZipKata.UnitTests
 
             // run
             var SUT = new Zipper(folderToZipPath, zipFilePath);
-            SUT.ZipFolder();
+            SUT.ZipFolder(CancellationToken.None);
 
             // assert
             Assert.That(File.Exists(zipFilePath), Is.True);
