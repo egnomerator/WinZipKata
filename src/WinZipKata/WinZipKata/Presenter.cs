@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using WinZipKata.Core;
@@ -26,10 +27,7 @@ namespace WinZipKata
 
             if (!_parentPathValidator.ParentPathIsValid(newParentPath))
             {
-                _parentPath.Reset();
-                _view.UpdateParentPath(_parentPath.Path);
-                _subFolders = new List<DirectoryInfo>();
-                _view.DisplaySubFolderNames(new List<string>());
+                Reset();
                 _view.DisplayMessage($"Path must exist and not contain an \"{ParentPathValidator.OutputFolder}\" SubFolder", "Invalid Parent Path");
                 return;
             }
@@ -42,10 +40,23 @@ namespace WinZipKata
         public void ZipSubFolders()
         {
             _view.DisableZipping();
+            var outputPath = CreateOutputFolder();
+            ZipEachSubFolder(_subFolders.Select(f => f.FullName).ToList(), outputPath);
+        }
 
+        private void Reset()
+        {
+            _parentPath.Reset();
+            _view.UpdateParentPath(_parentPath.Path);
+            _subFolders = new List<DirectoryInfo>();
+            _view.DisplaySubFolderNames(new List<string>());
+        }
+
+        private string CreateOutputFolder()
+        {
             var outputPath = Path.Combine(_parentPath.Path, ParentPathValidator.OutputFolder);
             Directory.CreateDirectory(outputPath);
-            ZipEachSubFolder(_subFolders.Select(f => f.FullName).ToList(), outputPath);
+            return outputPath;
         }
 
         private void ZipEachSubFolder(List<string> subFolderPaths, string outputPath)
