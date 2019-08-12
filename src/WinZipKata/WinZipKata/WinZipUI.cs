@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -51,14 +52,24 @@ namespace WinZipKata
 
         private void ZipEachSubFolder(List<string> subFolderPaths, string outputPath)
         {
-            subFolderPaths.ForEach(p=>ZipSubFolder(p, outputPath));
+            subFolderPaths.ForEach(p =>
+            {
+                var didZip = ZipSubFolder(p, outputPath);
+
+                var index = subFolderPaths.IndexOf(p);
+                SubFoldersListing.Items[index].BackColor = didZip ? Color.LightGreen : Color.Red;
+            });
         }
 
-        private void ZipSubFolder(string subFolderPath, string destinationPath)
+        private bool ZipSubFolder(string subFolderPath, string destinationPath)
         {
             var zipValidator = new ZipValidator(subFolderPath, destinationPath);
             var zipPath = zipValidator.GetZipFilePath();
-            if (zipValidator.ZipFileCanBeCreated()) new Zipper(subFolderPath, zipPath).ZipFolder();
+
+            if (!zipValidator.ZipFileCanBeCreated()) return false;
+
+            new Zipper(subFolderPath, zipPath).ZipFolder();
+            return true;
         }
 
         private void DisplaySubFolders()
