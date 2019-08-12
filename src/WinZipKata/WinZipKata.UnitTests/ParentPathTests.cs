@@ -20,21 +20,18 @@ namespace WinZipKata.UnitTests
         }
 
         [Test]
-        public void ShouldUpdate_SuchThatBothTrackedValuesAreUpdatedWithSameValue()
+        public void ShouldUpdate()
         {
             // setup
-            var existingPath = Support.Fixture.ParentPath;
-            var path = new TextBox();
-            path.Text = Support.Fixture.ParentPath;
+            var startingPath = Support.Fixture.ParentPath;
             var newPath = $"{Support.Fixture.ParentPath}new";
 
             // run
-            var SUT = new ParentPath(path);
+            var SUT = new ParentPath(startingPath);
             SUT.Update(newPath);
 
             // assert
-            Assert.That(path.Text, Is.EqualTo(newPath));
-            Assert.That(path.Text, Is.EqualTo(SUT.Path));
+            Assert.That(SUT.Path, Is.EqualTo(newPath));
 
         }
 
@@ -42,16 +39,14 @@ namespace WinZipKata.UnitTests
         public void ShouldResetParentPathToEmptyString()
         {
             // setup
-            var existingPath = Support.Fixture.ParentPath;
-            var path = new TextBox();
-            path.Text = Support.Fixture.ParentPath;
+            var startingPath = Support.Fixture.ParentPath;
 
             // run
-            var SUT = new ParentPath(path);
+            var SUT = new ParentPath(startingPath);
             SUT.Reset();
 
             // assert
-            Assert.That(path.Text, Is.Empty);
+            Assert.That(SUT.Path, Is.Empty);
 
         }
 
@@ -59,14 +54,12 @@ namespace WinZipKata.UnitTests
         public void ShouldDetermineThatParentPathChanged()
         {
             // setup
-            var path = new TextBox();
-            path.Text = Support.Fixture.ParentPath;
-            var newPath = string.Empty;
+            var startingPath = Support.Fixture.ParentPath;
+            var newPath = $"{Support.Fixture.ParentPath}new";
 
             // run
-            var SUT = new ParentPath(path);
-            path.Text = newPath;
-            var isChanged = SUT.IsChanged();
+            var SUT = new ParentPath(startingPath);
+            var isChanged = SUT.IsChanged(newPath);
 
             // assert
             Assert.That(isChanged, Is.True);
@@ -77,14 +70,11 @@ namespace WinZipKata.UnitTests
         public void ShouldDetermineThatParentPathDidNotChanged()
         {
             // setup
-            var existingPath = Support.Fixture.ParentPath;
-            var path = new TextBox();
-            var newPath = string.Empty;
+            var startingPath = Support.Fixture.ParentPath;
 
             // run
-            var SUT = new ParentPath(path);
-            path.Text = newPath;
-            var isChanged = SUT.IsChanged();
+            var SUT = new ParentPath(startingPath);
+            var isChanged = SUT.IsChanged(startingPath);
 
             // assert
             Assert.That(isChanged, Is.False);

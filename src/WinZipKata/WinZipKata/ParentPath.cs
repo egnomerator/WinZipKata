@@ -1,28 +1,26 @@
 ﻿using System;
-using System.Windows.Forms;
 
 namespace WinZipKata
 {
     public class ParentPath
     {
         public string Path { get; private set; }
-        private TextBox PathSource { get; }
 
-        public ParentPath(TextBox pathSource)
+        public ParentPath() { }
+
+        public ParentPath(string path)
         {
-            PathSource = pathSource;
-            Path = PathSource.Text;
+            Path = path;
         }
 
-        public bool IsChanged()
+        public bool IsChanged(string newParentPath)
         {
-            return !PathSource.Text.Equals(Path, StringComparison.Ordinal);
+            return !newParentPath.Equals(Path, StringComparison.Ordinal);
         }
 
-        public void Update(string newPath)
+        public void Update(string newParentPath)
         {
-            Path = newPath;
-            PathSource.Text = newPath;
+            Path = newParentPath;
         }
 
         public void Reset()

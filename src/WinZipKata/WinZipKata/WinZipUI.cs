@@ -19,20 +19,21 @@ namespace WinZipKata
         {
             InitializeComponent();
 
-            _presenter = new Presenter(this, new ParentPath(ParentPathInput));
+            _presenter = new Presenter(this, new ParentPath());
 
-            _parentPath = new ParentPath(ParentPathInput);
+            _parentPath = new ParentPath();
             _parentPathValidator = new ParentPathValidator();
             _subFolders = new List<DirectoryInfo>();
         }
 
         private void ParentPathInputChanged(object sender, EventArgs e)
         {
-            _presenter.ParentPathChanged(ParentPathInput.Text);
+            var newParentPath = ParentPathInput.Text;
+            _presenter.ParentPathChanged(newParentPath);
 
 
             var parentPath = ParentPathInput.Text;
-            if (!_parentPath.IsChanged()) return;
+            if (!_parentPath.IsChanged(newParentPath)) return;
 
             if (!_parentPathValidator.ParentPathIsValid(parentPath))
             {
