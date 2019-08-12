@@ -40,6 +40,27 @@ namespace WinZipKata
             DisplaySubFolders();
         }
 
+        private void ZipSubFolders(object sender, EventArgs e)
+        {
+            Zip.Enabled = false;
+
+            var outputPath = Path.Combine(_parentPath.Path, ParentPathValidator.OutputFolder);
+            Directory.CreateDirectory(outputPath);
+            ZipEachSubFolder(_subFolders.Select(f=>f.FullName).ToList(), outputPath);
+        }
+
+        private void ZipEachSubFolder(List<string> subFolderPaths, string outputPath)
+        {
+            subFolderPaths.ForEach(p=>ZipSubFolder(p, outputPath));
+        }
+
+        private void ZipSubFolder(string subFolderPath, string destinationPath)
+        {
+            var zipValidator = new ZipValidator(subFolderPath, destinationPath);
+            var zipPath = zipValidator.GetZipFilePath();
+            if (zipValidator.ZipFileCanBeCreated()) new Zipper(subFolderPath, zipPath).ZipFolder();
+        }
+
         private void DisplaySubFolders()
         {
             SubFoldersListing.Items.Clear();

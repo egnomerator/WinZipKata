@@ -31,6 +31,7 @@
             this.ParentPathInput = new System.Windows.Forms.TextBox();
             this.ParentPathLabel = new System.Windows.Forms.Label();
             this.SubFoldersListing = new System.Windows.Forms.ListBox();
+            this.Zip = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // ParentPathInput
@@ -58,11 +59,23 @@
             this.SubFoldersListing.Size = new System.Drawing.Size(329, 420);
             this.SubFoldersListing.TabIndex = 2;
             // 
+            // Zip
+            // 
+            this.Zip.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Zip.Location = new System.Drawing.Point(128, 137);
+            this.Zip.Name = "Zip";
+            this.Zip.Size = new System.Drawing.Size(89, 42);
+            this.Zip.TabIndex = 3;
+            this.Zip.Text = "Zip";
+            this.Zip.UseVisualStyleBackColor = true;
+            this.Zip.Click += new System.EventHandler(this.ZipSubFolders);
+            // 
             // WinZipUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.Zip);
             this.Controls.Add(this.SubFoldersListing);
             this.Controls.Add(this.ParentPathLabel);
             this.Controls.Add(this.ParentPathInput);
@@ -78,6 +91,7 @@
         private System.Windows.Forms.TextBox ParentPathInput;
         private System.Windows.Forms.Label ParentPathLabel;
         private System.Windows.Forms.ListBox SubFoldersListing;
+        private System.Windows.Forms.Button Zip;
     }
 }
 
