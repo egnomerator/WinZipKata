@@ -97,7 +97,7 @@ namespace WinZipKata
                 Parallel.ForEach(subFolderPaths, parallelOptions, (p, state, index) =>
                 {
                     var didZip = ZipSubFolder(p, outputPath, parallelOptions.CancellationToken);
-                    _view.IndicateSubFolderProcessed((int)index, didZip);
+                    if(!parallelOptions.CancellationToken.IsCancellationRequested) _view.IndicateSubFolderProcessed((int)index, didZip);
                 });
             }
             catch (OperationCanceledException)
