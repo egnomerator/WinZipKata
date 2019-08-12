@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using WinZipKata.Core;
 
 namespace WinZipKata
@@ -36,12 +37,13 @@ namespace WinZipKata
             _view.DisplaySubFolderNames(_subFolders.Select(f => f.Name).ToList());
         }
 
-        public void ZipSubFolders()
+        public async void ZipSubFolders()
         {
             _view.DisableZipping();
             _view.DisableParentPathEditing();
             var outputPath = CreateOutputFolder();
-            ZipEachSubFolder(_subFolders.Select(f => f.FullName).ToList(), outputPath);
+            await Task.Run(() => ZipEachSubFolder(_subFolders.Select(f => f.FullName).ToList(), outputPath));
+            _view.DisplayMessage("Finished zipping SubFolders", "Processing Complete");
         }
 
         private void Reset()

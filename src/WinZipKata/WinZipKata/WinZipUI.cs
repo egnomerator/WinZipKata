@@ -57,7 +57,8 @@ namespace WinZipKata
 
         public void IndicateSubFolderProcessed(int index, bool isProcessed)
         {
-            SubFoldersListing.Items[index].BackColor = isProcessed ? Color.LightGreen : Color.Red;
+            if (InvokeRequired) Invoke(new Action(() => IndicateSubFolderProcessed(index, isProcessed)));
+            else SubFoldersListing.Items[index].BackColor = isProcessed ? Color.LightGreen : Color.Red;
         }
     }
 }
