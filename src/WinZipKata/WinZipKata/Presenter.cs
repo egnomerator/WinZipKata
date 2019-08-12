@@ -63,12 +63,10 @@ namespace WinZipKata
 
         private void ZipEachSubFolder(List<string> subFolderPaths, string outputPath)
         {
-            subFolderPaths.ForEach(p =>
+            Parallel.ForEach(subFolderPaths, (p, state, index) =>
             {
                 var didZip = ZipSubFolder(p, outputPath);
-
-                var index = subFolderPaths.IndexOf(p);
-                _view.IndicateSubFolderProcessed(index, didZip);
+                _view.IndicateSubFolderProcessed((int)index, didZip);
             });
         }
 
