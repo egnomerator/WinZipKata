@@ -47,11 +47,12 @@ namespace WinZipKata
             _view.EnableAbort();
             var outputPath = CreateOutputFolder();
 
-            var isCanceled = false;
+            var ctsCancellationResult = CtsCancellation.NotRequested;
+
             try
             {
                 Cts = new CancellationTokenSource();
-                isCanceled = await Task.Run(() => ZipEachSubFolder(_subFolders.Select(f => f.FullName).ToList(), outputPath));
+                ctsCancellationResult = await Task.Run(() => ZipEachSubFolder(_subFolders.Select(f => f.FullName).ToList(), outputPath));
             }
             finally
             {
@@ -59,8 +60,8 @@ namespace WinZipKata
                 Cts = null;
                 _view.DisableAbort();
 
-                if (isCanceled) _view.DisplayMessage("Stopped zipping SubFolders", "Processing Canceled");
-                else _view.DisplayMessage("Finished zipping SubFolders", "Processing Complete");
+                var resultMessage = GetZippingResultMessage(ctsCancellationResult);
+                _view.DisplayMessage(resultMessage, "Processing Complete");
             }
         }
 
@@ -85,7 +86,7 @@ namespace WinZipKata
             return outputPath;
         }
 
-        private bool ZipEachSubFolder(List<string> subFolderPaths, string outputPath)
+        private CtsCancellation ZipEachSubFolder(List<string> subFolderPaths, string outputPath)
         {
             var parallelOptions = new ParallelOptions
             {
@@ -97,15 +98,15 @@ namespace WinZipKata
                 Parallel.ForEach(subFolderPaths, parallelOptions, (p, state, index) =>
                 {
                     var didZip = ZipSubFolder(p, outputPath, parallelOptions.CancellationToken);
-                    if(!parallelOptions.CancellationToken.IsCancellationRequested) _view.IndicateSubFolderProcessed((int)index, didZip);
+                    if (!parallelOptions.CancellationToken.IsCancellationRequested) _view.IndicateSubFolderProcessed((int)index, didZip);
                 });
             }
             catch (OperationCanceledException)
             {
-                return true;
+                return CtsCancellation.Honored;
             }
 
-            return false;
+            return Cts.IsCancellationRequested ? CtsCancellation.NotHonored : CtsCancellation.NotRequested;
         }
 
         private bool ZipSubFolder(string subFolderPath, string destinationPath, CancellationToken token)
@@ -118,6 +119,20 @@ namespace WinZipKata
 
             new Zipper(subFolderPath, zipPath).ZipFolder(token);
             return true;
+        }
+
+        private string GetZippingResultMessage(CtsCancellation ctsCancellationResult)
+        {
+            return ctsCancellationResult == CtsCancellation.Honored
+                ? "Stopped zipping SubFolders"
+                : "Finished zipping SubFolders";
+        }
+
+        private enum CtsCancellation
+        {
+            NotRequested,
+            Honored,
+            NotHonored
         }
     }
 }
